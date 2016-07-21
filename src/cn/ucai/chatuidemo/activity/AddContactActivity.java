@@ -37,6 +37,7 @@ import cn.ucai.chatuidemo.DemoHXSDKHelper;
 import cn.ucai.chatuidemo.bean.Result;
 import cn.ucai.chatuidemo.bean.UserAvatar;
 import cn.ucai.chatuidemo.utils.OkHttpUtils2;
+import cn.ucai.chatuidemo.utils.UserUtils;
 import cn.ucai.chatuidemo.utils.Utils;
 
 import com.easemob.chatuidemo.R;
@@ -92,6 +93,11 @@ public class AddContactActivity extends BaseActivity {
                 startActivity(new Intent(this, AlertDialog.class).putExtra("msg", str));
                 return;
             }
+            UserAvatar userAvatar = SuperWeChatApplication.getInstance().getUserAvatarMap().get(toAddUsername);
+            if (userAvatar != null) {
+                startActivity(new Intent(AddContactActivity.this, UserProfileActivity.class).putExtra("username", toAddUsername));
+                return;
+            }
             final OkHttpUtils2<String> utils2 = new OkHttpUtils2<String>();
             utils2.setRequestUrl(I.SERVER_ROOT)
                     .addParam(I.KEY_REQUEST, I.REQUEST_FIND_USER)
@@ -107,6 +113,7 @@ public class AddContactActivity extends BaseActivity {
                                 searchedUserLayout.setVisibility(View.VISIBLE);
                                 nameText.setText(toAddUsername);
                                 tvNoting.setVisibility(View.GONE);
+                                UserUtils.setAppUserAvatar(AddContactActivity.this,toAddUsername,avatar);
                             } else {
                                 searchedUserLayout.setVisibility(View.VISIBLE);
                                 tvNoting.setVisibility(View.GONE);
