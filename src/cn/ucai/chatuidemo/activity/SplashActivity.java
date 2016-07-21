@@ -64,7 +64,7 @@ public class SplashActivity extends BaseActivity {
                     UserAvatar userAvatar = dao.userAvatarInfo(username);
                     Log.e("qqqq", "userAvatar:"+userAvatar.toString());
                     new DownContactListTask(username, SplashActivity.this).execute();
-                    
+
                     long costTime = System.currentTimeMillis() - start;
                     //等待sleeptime时长
                     if (sleepTime - costTime > 0) {

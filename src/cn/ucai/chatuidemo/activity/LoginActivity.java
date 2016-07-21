@@ -270,20 +270,20 @@ public class LoginActivity extends BaseActivity {
 
         userlist.put(Constant.NEW_FRIENDS_USERNAME, newFriends);
         // 添加"群聊"
-        User groupUser = new User();
-        String strGroup = getResources().getString(R.string.group_chat);
-        groupUser.setUsername(Constant.GROUP_USERNAME);
-        groupUser.setNick(strGroup);
-        groupUser.setHeader("");
-        userlist.put(Constant.GROUP_USERNAME, groupUser);
+//        User groupUser = new User();
+//        String strGroup = getResources().getString(R.string.group_chat);
+//        groupUser.setUsername(Constant.GROUP_USERNAME);
+//        groupUser.setNick(strGroup);
+//        groupUser.setHeader("");
+//        userlist.put(Constant.GROUP_USERNAME, groupUser);
 
         // 添加"Robot"
-        User robotUser = new User();
-        String strRobot = getResources().getString(R.string.robot_chat);
-        robotUser.setUsername(Constant.CHAT_ROBOT);
-        robotUser.setNick(strRobot);
-        robotUser.setHeader("");
-        userlist.put(Constant.CHAT_ROBOT, robotUser);
+//        User robotUser = new User();
+//        String strRobot = getResources().getString(R.string.robot_chat);
+//        robotUser.setUsername(Constant.CHAT_ROBOT);
+//        robotUser.setNick(strRobot);
+//        robotUser.setHeader("");
+//        userlist.put(Constant.CHAT_ROBOT, robotUser);
 
         // 存入内存
         ((DemoHXSDKHelper) HXSDKHelper.getInstance()).setContactList(userlist);
