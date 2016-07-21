@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseIntArray;
@@ -29,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import cn.ucai.chatuidemo.I;
 import cn.ucai.chatuidemo.domain.User;
 import cn.ucai.chatuidemo.Constant;
 import com.easemob.chatuidemo.R;
@@ -187,7 +189,7 @@ public class ContactAdapter extends ArrayAdapter<User>  implements SectionIndexe
 		public MyFilter(List<User> myList) {
 			this.mOriginalList = myList;
 		}
-
+		//prefix 搜索输入的字符
 		@Override
 		protected synchronized FilterResults performFiltering(CharSequence prefix) {
 			FilterResults results = new FilterResults();
@@ -208,8 +210,10 @@ public class ContactAdapter extends ArrayAdapter<User>  implements SectionIndexe
 					final User user = mOriginalList.get(i);
 					String username = user.getUsername();
 					
-					if(username.startsWith(prefixString)){
-						newValues.add(user);
+					if(username.contains(prefixString)){
+						if (!username.equals(Constant.NEW_FRIENDS_USERNAME) && !username.equals(Constant.GROUP_USERNAME)) {
+							newValues.add(user);
+						}
 					}
 					else{
 						 final String[] words = username.split(" ");
