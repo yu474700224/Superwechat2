@@ -19,7 +19,9 @@ import android.content.Context;
 import com.easemob.EMCallBack;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.ucai.chatuidemo.bean.UserAvatar;
 
@@ -114,7 +116,12 @@ public class SuperWeChatApplication extends Application {
 	}
 
 	private UserAvatar user;
-	List<UserAvatar> userAvatarList;
+
+	List<UserAvatar> userAvatarList = new ArrayList<UserAvatar>() {
+	};
+
+	Map<String, UserAvatar> userAvatarMap = new HashMap<String, UserAvatar>();
+
 	public UserAvatar getUser() {
 		return user;
 	}
@@ -129,5 +136,13 @@ public class SuperWeChatApplication extends Application {
 
 	public void setUserAvatarList(List<UserAvatar> userAvatarList) {
 		this.userAvatarList = userAvatarList;
+	}
+
+	public Map<String, UserAvatar> getUserAvatarMap() {
+		return userAvatarMap;
+	}
+
+	public void setUserAvatarMap(Map<String, UserAvatar> userAvatarMap) {
+		this.userAvatarMap = userAvatarMap;
 	}
 }

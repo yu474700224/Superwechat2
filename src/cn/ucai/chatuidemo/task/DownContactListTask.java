@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import java.util.List;
+import java.util.Map;
 
 import cn.ucai.chatuidemo.I;
 import cn.ucai.chatuidemo.SuperWeChatApplication;
@@ -40,6 +41,10 @@ public class DownContactListTask {
                             Log.e("qqq", "list.size():" + list.size());
                             SuperWeChatApplication.getInstance().setUserAvatarList(list);
                             context.sendStickyBroadcast(new Intent("update_contact_list"));
+                            final Map<String, UserAvatar> userAvatarMap = SuperWeChatApplication.getInstance().getUserAvatarMap();
+                            for (UserAvatar u : list) {
+                                userAvatarMap.put(u.getMUserName(), u);
+                            }
                         }
                     }
 
