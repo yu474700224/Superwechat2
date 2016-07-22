@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import cn.ucai.chatuidemo.domain.User;
 import com.easemob.EMValueCallBack;
@@ -83,6 +84,7 @@ public class ParseManager {
 	}
 
 	public void getContactInfos(List<String> usernames, final EMValueCallBack<List<User>> callback) {
+		Log.e(TAG, "getContactInfos执行");
 		ParseQuery<ParseObject> pQuery = ParseQuery.getQuery(CONFIG_TABLE_NAME);
 		pQuery.whereContainedIn(CONFIG_USERNAME, usernames);
 		pQuery.findInBackground(new FindCallback<ParseObject>() {
@@ -113,7 +115,7 @@ public class ParseManager {
 	/**
      * 设置hearder属性，方便通讯中对联系人按header分类显示，以及通过右侧ABCD...字母栏快速定位联系人
      * 
-     * @param username
+     * @param
      * @param user
      */
     private static void setUserHearder(User user) {

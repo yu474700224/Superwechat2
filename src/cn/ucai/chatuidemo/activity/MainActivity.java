@@ -27,6 +27,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.TaskStackBuilder;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -38,6 +39,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.ucai.chatuidemo.DemoHXSDKHelper;
+import cn.ucai.chatuidemo.I;
+import cn.ucai.chatuidemo.SuperWeChatApplication;
+import cn.ucai.chatuidemo.bean.Result;
+import cn.ucai.chatuidemo.bean.UserAvatar;
 import cn.ucai.chatuidemo.db.InviteMessgeDao;
 import cn.ucai.chatuidemo.domain.User;
 import com.easemob.EMCallBack;
@@ -65,6 +70,9 @@ import cn.ucai.chatuidemo.db.UserDao;
 import cn.ucai.chatuidemo.domain.InviteMessage;
 import cn.ucai.chatuidemo.domain.InviteMessage.InviteMesageStatus;
 import cn.ucai.chatuidemo.utils.CommonUtils;
+import cn.ucai.chatuidemo.utils.OkHttpUtils2;
+import cn.ucai.chatuidemo.utils.Utils;
+
 import com.easemob.util.EMLog;
 import com.easemob.util.HanziToPinyin;
 import com.easemob.util.NetUtils;
@@ -518,6 +526,8 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 			// 保存增加的联系人
 			Map<String, User> localUsers = ((DemoHXSDKHelper)HXSDKHelper.getInstance()).getContactList();
 			Map<String, User> toAddUsers = new HashMap<String, User>();
+			final Map<String, UserAvatar> userAvatarMap = SuperWeChatApplication.getInstance().getUserAvatarMap();
+			List<String> toAddUserName = new ArrayList<String>();
 			for (String username : usernameList) {
 				User user = setUserHead(username);
 				// 添加好友时可能会回调added方法两次
@@ -525,8 +535,43 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 					userDao.saveContact(user);
 				}
 				toAddUsers.put(username, user);
+				if (!userAvatarMap.containsKey(username)) {
+					toAddUserName.add(username);
+				}
 			}
 			localUsers.putAll(toAddUsers);
+			final OkHttpUtils2<String> utils2 = new OkHttpUtils2<String>();
+			for (final String name : toAddUserName) {
+				utils2.setRequestUrl(I.REQUEST_ADD_CONTACT)
+						.addParam(I.Contact.USER_NAME,SuperWeChatApplication.getInstance().getUserName())
+						.addParam(I.Contact.CU_NAME,name)
+						.targetClass(String.class)
+						.execute(new OkHttpUtils2.OnCompleteListener<String>() {
+							@Override
+							public void onSuccess(String s) {
+								Log.e(TAG, "s:" + s);
+								Result result = Utils.getResultFromJson(s, UserAvatar.class);
+								if (result != null && result.isRetMsg()) {
+									UserAvatar userAvatar = (UserAvatar) result.getRetData();
+									if (userAvatar != null) {
+										if (!SuperWeChatApplication.getInstance().getUserAvatarMap()
+												.containsKey(userAvatar.getMUserName())) {
+											SuperWeChatApplication.getInstance().getUserAvatarMap().put(userAvatar.getMUserName(),userAvatar);
+											SuperWeChatApplication.getInstance().getUserAvatarList().add(userAvatar);
+											sendStickyBroadcast(new Intent("update_contact_list"));
+										}
+									}
+								}
+
+							}
+
+							@Override
+							public void onError(String error) {
+
+							}
+						});
+			}
+
 			// 刷新ui
 			if (currentTabIndex == 1)
 				contactListFragment.refresh();
@@ -548,7 +593,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 					String st10 = getResources().getString(R.string.have_you_removed);
 					if (ChatActivity.activityInstance != null
 							&& usernameList.contains(ChatActivity.activityInstance.getToChatUsername())) {
-						Toast.makeText(MainActivity.this, ChatActivity.activityInstance.getToChatUsername() + st10, 1)
+						Toast.makeText(MainActivity.this, ChatActivity.activityInstance.getToChatUsername() + st10, Toast.LENGTH_LONG)
 								.show();
 						ChatActivity.activityInstance.finish();
 					}
