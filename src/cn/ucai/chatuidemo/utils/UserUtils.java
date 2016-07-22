@@ -60,30 +60,7 @@ public class UserUtils {
         }
     }
 
-    /**
-     * 设置好友头像
-     *
-     * @param username
-     */
-    public static void setAppUserAvatar(Context context, String username, ImageView imageView) {
-        String path = "";
-        if (path != null && username != null) {
-            path = getUserAvatarPath(username).toString();
-            Log.e("qqqq", path);
-            Picasso.with(context).load(path).placeholder(R.drawable.default_avatar).into(imageView);
-        } else {
-            Picasso.with(context).load(R.drawable.default_avatar).into(imageView);
-        }
-    }
 
-    //从服务器上获取好友头像
-    private static StringBuilder getUserAvatarPath(String username) {
-        StringBuilder path = new StringBuilder(I.SERVER_ROOT);
-        path.append(I.QUESTION).append(I.KEY_REQUEST).append(I.EQUAL).append(I.REQUEST_DOWNLOAD_AVATAR)
-                .append(I.ADD).append(I.NAME_OR_HXID).append(I.EQUAL).append(username)
-                .append(I.ADD).append(I.AVATAR_TYPE).append(I.EQUAL).append(I.AVATAR_TYPE_USER_PATH);
-        return path;
-    }
 
     /**
      * 设置当前用户头像
@@ -147,5 +124,47 @@ public class UserUtils {
         ((DemoHXSDKHelper) HXSDKHelper.getInstance()).saveContact(newUser);
     }
 
+//-------------------------------------------------------------------------------------------------------------
+    /**
+     * 仿写：设置好友头像
+     *
+     * @param username
+     */
+    public static void setAppUserAvatar(Context context, String username, ImageView imageView) {
+        String path = "";
+        if (path != null && username != null) {
+            path = getUserAvatarPath(username).toString();
+            Log.e("qqqq", path);
+            Picasso.with(context).load(path).placeholder(R.drawable.default_avatar).into(imageView);
+        } else {
+            Picasso.with(context).load(R.drawable.default_avatar).into(imageView);
+        }
+    }
+
+    //从服务器上获取好友头像
+    private static StringBuilder getUserAvatarPath(String username) {
+        StringBuilder path = new StringBuilder(I.SERVER_ROOT);
+        path.append(I.QUESTION).append(I.KEY_REQUEST).append(I.EQUAL).append(I.REQUEST_DOWNLOAD_AVATAR)
+                .append(I.ADD).append(I.NAME_OR_HXID).append(I.EQUAL).append(username)
+                .append(I.ADD).append(I.AVATAR_TYPE).append(I.EQUAL).append(I.AVATAR_TYPE_USER_PATH);
+        return path;
+    }
+
+    /**
+     * 设置当前用户昵称
+     */
+    public static void setAppCurrentUserNick(TextView textView) {
+        final String userName = SuperWeChatApplication.getInstance().getUserName();
+        final User user = UserUtils.getUserInfo(userName);
+        if (user != null) {
+            if (user.getNick() != null) {
+                textView.setText(user.getNick());
+            } else {
+                textView.setText(user.getUsername());
+            }
+        } else {
+            textView.setText(user.getUsername());
+        }
+    }
 
 }

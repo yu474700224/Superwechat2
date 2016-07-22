@@ -190,6 +190,7 @@ public class LoginActivity extends BaseActivity {
                         if (s!=null) {
                             Result result = Utils.getResultFromJson(s, UserAvatar.class);
                             UserAvatar user = (UserAvatar) result.getRetData();
+                            SuperWeChatApplication.currentUserNick = user.getMUserNick();
                             SavaUserToHXDB(user);
                             HXLoginSuccess(user);
                         }else{
