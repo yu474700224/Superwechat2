@@ -30,12 +30,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import cn.ucai.chatuidemo.activity.NewFriendsMsgActivity;
 import cn.ucai.chatuidemo.db.InviteMessgeDao;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMGroupManager;
 import com.easemob.chatuidemo.R;
 import cn.ucai.chatuidemo.domain.InviteMessage;
 import cn.ucai.chatuidemo.domain.InviteMessage.InviteMesageStatus;
+import cn.ucai.chatuidemo.utils.UserUtils;
 
 public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 
@@ -124,6 +126,7 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 			}
 
 			// 设置用户头像
+			UserUtils.setAppCurrentUserAvatar(context,msg.getFrom(),holder.avator);
 		}
 
 		return convertView;
