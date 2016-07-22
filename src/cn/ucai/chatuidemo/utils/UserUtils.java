@@ -101,7 +101,6 @@ public class UserUtils {
             textView.setText(username);
         }
     }
-
     /**
      * 设置当前用户昵称
      */
@@ -166,5 +165,16 @@ public class UserUtils {
             textView.setText(user.getUsername());
         }
     }
+    /**
+     * 仿写：设置查询好友昵称
+     */
+    public static void setContactUserNick(String username, TextView textView) {
+        final UserAvatar userAvatar = SuperWeChatApplication.getInstance().getUserAvatarMap().get(username);
 
+        if (userAvatar != null) {
+            textView.setText(userAvatar.getMUserNick());
+        } else {
+            textView.setText(username);
+        }
+    }
 }
