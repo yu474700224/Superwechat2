@@ -86,21 +86,7 @@ public class UserUtils {
         }
     }
 
-    /**
-     * 设置好友关系昵称
-     */
-    public static void setAppUserNick(String username, TextView textView) {
-        UserAvatar user = getAppUserInfo(username);
-        if (user != null) {
-            if (user.getMUserNick() != null) {
-                textView.setText(user.getMUserNick());
-            } else {
-                textView.setText(username);
-            }
-        } else {
-            textView.setText(username);
-        }
-    }
+
     /**
      * 设置当前用户昵称
      */
@@ -148,7 +134,7 @@ public class UserUtils {
                 .append(I.ADD).append(I.AVATAR_TYPE).append(I.EQUAL).append(I.AVATAR_TYPE_USER_PATH);
         return path;
     }
-
+    //------------
     /**
      * 设置当前用户昵称
      */
@@ -165,6 +151,7 @@ public class UserUtils {
             textView.setText(user.getUsername());
         }
     }
+
     /**
      * 仿写：设置查询好友昵称
      */
@@ -190,5 +177,32 @@ public class UserUtils {
      */
     public static void setAppCurrentUserAvatar(Context context, String username,ImageView imageView) {
         UserUtils.setAppUserAvatar(context, username, imageView);
+    }
+
+    /**
+     * 仿写：设置查询好友昵称
+     */
+    public static void setAppAddContactUserNick(UserAvatar userAvatar, TextView textView) {
+        if (userAvatar != null) {
+            textView.setText(userAvatar.getMUserNick());
+        } else {
+            textView.setText(userAvatar.getMUserName());
+        }
+    }
+
+    /**
+     * 设置好友关系昵称
+     */
+    public static void setAppUserNick(String username, TextView textView) {
+        UserAvatar user = getAppUserInfo(username);
+        if (user != null) {
+            if (user.getMUserNick() != null) {
+                textView.setText(user.getMUserNick());
+            } else {
+                textView.setText(username);
+            }
+        } else {
+            textView.setText(username);
+        }
     }
 }
