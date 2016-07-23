@@ -22,13 +22,16 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -267,6 +270,7 @@ public class ContactlistFragment extends Fragment {
 		} else {
 			progressBar.setVisibility(View.GONE);
 		}
+		UpdateContactListLitener();
 	}
 
 	@Override
@@ -496,5 +500,27 @@ public class ContactlistFragment extends Fragment {
 	    	outState.putBoolean(Constant.ACCOUNT_REMOVED, true);
 	    }
 	    
+	}
+
+
+	class UpdataContactReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			Log.e("qqqq", "调用到了");
+			adapter.notifyDataSetChanged();
+		}
+	}
+	UpdataContactReceiver mUpdataContactReceiver;
+	private void UpdateContactListLitener(){
+		mUpdataContactReceiver = new UpdataContactReceiver();
+		IntentFilter filter = new IntentFilter("update_contact_list");
+		getActivity().registerReceiver(mUpdataContactReceiver, filter);
+	}
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		getActivity().unregisterReceiver(mUpdataContactReceiver);
 	}
 }
