@@ -121,7 +121,7 @@ public interface I {
 	int MSG_UNKNOW									=		999;							//未知错误
 	int MSG_ILLEGAL_REQUEST							=		-1;							//非法请求
 
-	String SERVER_ROOT 		= "http://10.0.2.2:8080/SuperWeChatServer/Server";//服务器地址
+	String SERVER_ROOT 		= "http://192.168.1.127:8080/SuperWeChatServer/Server";//服务器地址
 	String QUESTION = "?";//问号
 	String EQUAL = "=";//等于
 	String ADD = "&";//&符号
