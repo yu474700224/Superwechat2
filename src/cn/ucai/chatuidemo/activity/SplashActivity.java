@@ -6,15 +6,21 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import cn.ucai.chatuidemo.DemoHXSDKHelper;
+import cn.ucai.chatuidemo.I;
 import cn.ucai.chatuidemo.SuperWeChatApplication;
+import cn.ucai.chatuidemo.bean.Result;
 import cn.ucai.chatuidemo.bean.UserAvatar;
 import cn.ucai.chatuidemo.db.UserDao;
 import cn.ucai.chatuidemo.task.DownContactListTask;
+import cn.ucai.chatuidemo.utils.OkHttpUtils2;
+import cn.ucai.chatuidemo.utils.UserUtils;
+import cn.ucai.chatuidemo.utils.Utils;
 
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMGroupManager;
@@ -63,7 +69,33 @@ public class SplashActivity extends BaseActivity {
                     Log.e("qqqq", "username:"+username);
                     UserAvatar userAvatar = dao.userAvatarInfo(username);
                     Log.e("qqqq", "userAvatar:"+userAvatar.toString());
-                    if(userAvatar != null) {
+                    if (userAvatar == null) {
+                        final OkHttpUtils2<String> utils2 = new OkHttpUtils2<String>();
+                        utils2.setRequestUrl(I.SERVER_ROOT)
+                                .addParam(I.KEY_REQUEST, I.REQUEST_FIND_USER)
+                                .addParam(I.User.USER_NAME, username)
+                                .targetClass(String.class)
+                                .execute(new OkHttpUtils2.OnCompleteListener<String>() {
+                                    @Override
+                                    public void onSuccess(String s) {
+                                        if (s != null) {
+                                            Result result = Utils.getResultFromJson(s, UserAvatar.class);
+                                            UserAvatar user = (UserAvatar) result.getRetData();
+                                            if (user != null) {
+                                                SuperWeChatApplication.currentUserNick = user.getMUserNick();
+                                                new DownContactListTask(user.getMUserName(), SplashActivity.this).execute();
+                                            }else{
+                                                Log.e("qqqq", "没找到此用户");
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onError(String error) {
+
+                                    }
+                                });
+                    }else{
                         SuperWeChatApplication.currentUserNick = userAvatar.getMUserNick();
                         new DownContactListTask(username, SplashActivity.this).execute();
                     }
