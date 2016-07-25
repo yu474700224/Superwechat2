@@ -11,6 +11,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 
+import cn.ucai.chatuidemo.I;
+import cn.ucai.chatuidemo.SuperWeChatApplication;
 import cn.ucai.chatuidemo.bean.UserAvatar;
 import cn.ucai.chatuidemo.domain.User;
 import cn.ucai.chatuidemo.Constant;
@@ -387,5 +389,15 @@ public class DemoDBManager {
             userAvatar.setMAvatarType(cursor.getInt(cursor.getColumnIndex(UserDao.MY_COLUMN_AVATAR_TYPE)));
         }
         return userAvatar;
+    }
+
+    public void updataHXDBNick(String nickString) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(I.User.NICK,nickString);
+        if (db.isOpen()) {
+            db.update(UserDao.MY_TABLE_NAME, values, UserDao.MY_COLUMN_NAME_ID + " = ?",
+                    new String[]{SuperWeChatApplication.getInstance().getUserName()});
+        }
     }
 }

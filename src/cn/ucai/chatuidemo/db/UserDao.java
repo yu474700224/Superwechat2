@@ -117,4 +117,8 @@ public class UserDao {
     public UserAvatar userAvatarInfo(String usernmae) {
         return DemoDBManager.getInstance().getUserAvatar(usernmae);
     }
+
+    public void updataHXDBNick(String nickString) {
+        DemoDBManager.getInstance().updataHXDBNick(nickString);
+    }
 }
