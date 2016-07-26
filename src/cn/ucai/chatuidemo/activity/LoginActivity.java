@@ -73,7 +73,6 @@ public class LoginActivity extends BaseActivity {
 
     ProgressDialog pd;
 
-    int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
