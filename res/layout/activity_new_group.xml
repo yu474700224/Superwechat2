@@ -71,8 +71,38 @@
         android:paddingLeft="5dp"
         android:paddingTop="5dp"
         android:textSize="18sp" />
-    
-    
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="#fff"
+        android:id="@+id/layout_register_avatar">
+
+        <ImageView
+            android:id="@+id/iv_register_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:src="@drawable/default_avatar"/>
+
+        <EditText
+            android:id="@+id/et_register_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/iv_register_avatar"
+            android:background="@null"
+            android:hint="群图标"
+            android:inputType="textPassword"
+            android:paddingLeft="10dip"
+            android:singleLine="true"
+            android:textSize="18sp"/>
+    </RelativeLayout>
     <LinearLayout 
         android:layout_width="match_parent"
        android:layout_height="39dp"
