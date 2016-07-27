@@ -55,7 +55,6 @@ import com.easemob.util.EMLog;
  */
 public class ChatAllHistoryAdapter extends ArrayAdapter<EMConversation> {
 
-	int i = 0;
 	private static final String TAG = "ChatAllHistoryAdapter";
 	private LayoutInflater inflater;
 	private List<EMConversation> conversationList;
