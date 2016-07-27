@@ -51,6 +51,7 @@ import com.easemob.chatuidemo.R;
 
 import cn.ucai.chatuidemo.db.UserDao;
 import cn.ucai.chatuidemo.task.DownContactListTask;
+import cn.ucai.chatuidemo.task.DownGroupListTask;
 import cn.ucai.chatuidemo.utils.CommonUtils;
 import cn.ucai.chatuidemo.utils.OkHttpUtils2;
 import cn.ucai.chatuidemo.utils.Utils;
@@ -225,6 +226,7 @@ public class LoginActivity extends BaseActivity {
         SuperWeChatApplication.getInstance().setUser(user);
         SuperWeChatApplication.currentUserNick = user.getMUserNick();
         new DownContactListTask(currentUsername,LoginActivity.this).execute();
+        new DownGroupListTask(currentUsername,LoginActivity.this).execute();
         try {
             // ** 第一次登录或者之前logout后再登录，加载所有本地群和回话
             // ** manually load all local groups and

@@ -18,6 +18,7 @@ import cn.ucai.chatuidemo.bean.Result;
 import cn.ucai.chatuidemo.bean.UserAvatar;
 import cn.ucai.chatuidemo.db.UserDao;
 import cn.ucai.chatuidemo.task.DownContactListTask;
+import cn.ucai.chatuidemo.task.DownGroupListTask;
 import cn.ucai.chatuidemo.utils.OkHttpUtils2;
 import cn.ucai.chatuidemo.utils.UserUtils;
 import cn.ucai.chatuidemo.utils.Utils;
@@ -84,6 +85,7 @@ public class SplashActivity extends BaseActivity {
                                             if (user != null) {
                                                 SuperWeChatApplication.currentUserNick = user.getMUserNick();
                                                 new DownContactListTask(user.getMUserName(), SplashActivity.this).execute();
+                                                new DownGroupListTask(user.getMUserName(), SplashActivity.this).execute();
                                             }else{
                                                 Log.e("qqqq", "没找到此用户");
                                             }
