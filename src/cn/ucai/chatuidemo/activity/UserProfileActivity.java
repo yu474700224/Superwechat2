@@ -79,6 +79,7 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
     private void initListener() {
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");
+        String hxId = intent.getStringExtra("groupId");
         boolean enableUpdate = intent.getBooleanExtra("setting", false);
         if (enableUpdate) {
             headPhotoUpdate.setVisibility(View.VISIBLE);
@@ -90,10 +91,13 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
             iconRightArrow.setVisibility(View.INVISIBLE);
         }
         if (username == null || username.equals(EMChatManager.getInstance().getCurrentUser())) {
-            Log.e("qqqq", EMChatManager.getInstance().getCurrentUser());
             tvUsername.setText(EMChatManager.getInstance().getCurrentUser());
             UserUtils.setAppCurrentUserNick(tvNickName);
             UserUtils.setAppUserAvatar(this, EMChatManager.getInstance().getCurrentUser(), headAvatar);
+        }else if(hxId!=null){
+            tvUsername.setText(username);
+            UserUtils.setAppMemberNick(hxId,username, tvNickName);
+            UserUtils.setAppUserAvatar(this, username, headAvatar);
         } else {
             tvUsername.setText(username);
             UserUtils.setContactUserNick(username, tvNickName);

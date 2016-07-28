@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -38,7 +39,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import cn.ucai.chatuidemo.I;
+import cn.ucai.chatuidemo.bean.GroupAvatar;
+import cn.ucai.chatuidemo.bean.Result;
+import cn.ucai.chatuidemo.utils.OkHttpUtils2;
 import cn.ucai.chatuidemo.utils.UserUtils;
+import cn.ucai.chatuidemo.utils.Utils;
 import cn.ucai.chatuidemo.widget.ExpandGridView;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMGroup;
@@ -425,12 +431,55 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 					runOnUiThread(new Runnable() {
 						public void run() {
 							progressDialog.dismiss();
-							Toast.makeText(getApplicationContext(), st6 + e.getMessage(), 1).show();
+							Toast.makeText(getApplicationContext(), st6 + e.getMessage(), Toast.LENGTH_LONG).show();
 						}
 					});
 				}
 			}
 		}).start();
+		addGroupMember(st6, groupId, newmembers);
+	}
+
+	private void addGroupMember(final String st2,String groupId, String[] members) {
+		String memeberArr ="";
+		for (String m : members) {
+			memeberArr += m + ",";
+		}
+		Log.e(TAG, memeberArr.toString());
+		memeberArr = memeberArr.substring(0, members.length - 1);
+		final OkHttpUtils2<String> utils2 = new OkHttpUtils2<String>();
+		utils2.setRequestUrl(I.REQUEST_ADD_GROUP_MEMBERS)
+				.addParam(I.Member.GROUP_HX_ID, groupId)
+				.addParam(I.Member.USER_NAME,memeberArr)
+				.targetClass(String.class)
+				.execute(new OkHttpUtils2.OnCompleteListener<String>() {
+					@Override
+					public void onSuccess(String s) {
+						Log.e(TAG, "s:" + s);
+						final Result result = Utils.getResultFromJson(s, GroupAvatar.class);
+						Log.e(TAG, "result:" + result);
+						GroupAvatar groupAvatar = (GroupAvatar) result.getRetData();
+						if (result != null && result.isRetMsg()) {
+							runOnUiThread(new Runnable() {
+								public void run() {
+									progressDialog.dismiss();
+									setResult(RESULT_OK);
+									finish();
+								}
+							});
+						} else {
+							Toast.makeText(getApplicationContext(), st2 , Toast.LENGTH_LONG).show();
+							progressDialog.dismiss();
+						}
+					}
+
+					@Override
+					public void onError(String error) {
+						Log.e(TAG, "erroe:" + error);
+						Toast.makeText(getApplicationContext(), st2 + error, Toast.LENGTH_LONG).show();
+						progressDialog.dismiss();
+					}
+				});
 	}
 
 	@Override
@@ -627,8 +676,9 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 //				Drawable avatar = getResources().getDrawable(R.drawable.default_avatar);
 //				avatar.setBounds(0, 0, referenceWidth, referenceHeight);
 //				button.setCompoundDrawables(null, avatar, null, null);
-				holder.textView.setText(username);
-				UserUtils.setUserAvatar(getContext(), username, holder.imageView);
+//				holder.textView.setText(username);
+				UserUtils.setAppUserAvatar(getContext(), username, holder.imageView);
+				UserUtils.setAppMemberNick(groupId, username, holder.textView);
 				// demo群组成员的头像都用默认头像，需由开发者自己去设置头像
 				if (isInDeleteMode) {
 					// 如果是删除模式下，显示减人图标

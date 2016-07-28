@@ -18,12 +18,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -70,6 +73,7 @@ import cn.ucai.applib.model.GroupRemoveListener;
 import cn.ucai.chatuidemo.DemoHXSDKHelper;
 import cn.ucai.chatuidemo.SuperWeChatApplication;
 import cn.ucai.chatuidemo.domain.RobotUser;
+import cn.ucai.chatuidemo.task.DownMembersListTask;
 import cn.ucai.chatuidemo.utils.Utils;
 import cn.ucai.chatuidemo.widget.ExpandGridView;
 import cn.ucai.chatuidemo.widget.PasteEditText;
@@ -405,6 +409,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 
 			if(chatType == CHATTYPE_GROUP){
 			    onGroupViewCreation();
+				new DownMembersListTask(toChatUsername, getApplicationContext()).execute();
 			}else{ 
 			    onChatRoomViewCreation();
 			}
@@ -1472,6 +1477,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 		if(groupListener != null){
 		    EMGroupManager.getInstance().removeGroupChangeListener(groupListener);
 		}
+		if (mMemberReceiver != null) {
+			unregisterReceiver(mMemberReceiver);
+		}
 	}
 
 	@Override
@@ -1756,4 +1764,18 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 		return listView;
 	}
 
+	class MemberReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			adapter.notifyDataSetChanged();
+		}
+	}
+
+	MemberReceiver mMemberReceiver;
+
+	private void updataMembers() {
+		mMemberReceiver = new MemberReceiver();
+		IntentFilter filter = new IntentFilter("update_member_list");
+		registerReceiver(mMemberReceiver, filter);
+	}
 }

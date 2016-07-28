@@ -1,6 +1,7 @@
 package cn.ucai.chatuidemo.utils;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
@@ -10,11 +11,15 @@ import cn.ucai.applib.controller.HXSDKHelper;
 import cn.ucai.chatuidemo.DemoHXSDKHelper;
 import cn.ucai.chatuidemo.I;
 import cn.ucai.chatuidemo.SuperWeChatApplication;
+import cn.ucai.chatuidemo.bean.MemberUserAvatar;
 import cn.ucai.chatuidemo.bean.UserAvatar;
 import cn.ucai.chatuidemo.domain.User;
 
 import com.easemob.chatuidemo.R;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserUtils {
     /**
@@ -23,6 +28,8 @@ public class UserUtils {
      * @param username
      * @return
      */
+
+    private static String TAG = UserUtils.class.getSimpleName();
     public static User getUserInfo(String username) {
         User user = ((DemoHXSDKHelper) HXSDKHelper.getInstance()).getContactList().get(username);
         if (user == null) {
@@ -229,5 +236,28 @@ public class UserUtils {
                 .append(I.ADD).append(I.NAME_OR_HXID).append(I.EQUAL).append(hxid)
                 .append(I.ADD).append(I.AVATAR_TYPE).append(I.EQUAL).append(I.AVATAR_TYPE_GROUP_PATH);
         return path;
+    }
+
+    //从全局变量中获取群组信息
+    @Nullable
+    private static MemberUserAvatar getAppMemberInfo(String hxId, String username) {
+        MemberUserAvatar memberUserAvatar = null;
+        Map<String, MemberUserAvatar> members = SuperWeChatApplication.getInstance().getMemberAvatarMap().get(hxId);
+        if (members == null || members.size() < 0) {
+            return null;
+        }else{
+            memberUserAvatar = members.get(username);
+        }
+        return memberUserAvatar;
+    }
+
+    public static void setAppMemberNick(String hxid, String username, TextView textView) {
+        final MemberUserAvatar memberInfo = getAppMemberInfo(hxid, username);
+        Log.e(TAG, "memberInfo:" + memberInfo);
+        if (memberInfo != null && memberInfo.getMUserNick() != null) {
+            textView.setText(memberInfo.getMUserNick());
+        }else{
+            textView.setText(memberInfo.getMUserName());
+        }
     }
 }

@@ -224,6 +224,7 @@ public class NewGroupActivity extends BaseActivity {
             memeberArr += m + ",";
         }
         Log.e(TAG, memeberArr.toString());
+        memeberArr = memeberArr.substring(0, memeberArr.length() - 1);
         final OkHttpUtils2<String> utils2 = new OkHttpUtils2<String>();
         utils2.setRequestUrl(I.REQUEST_ADD_GROUP_MEMBERS)
                 .addParam(I.Member.GROUP_HX_ID, groupId)
