@@ -43,7 +43,6 @@ import cn.ucai.chatuidemo.utils.Utils;
 import com.easemob.chatuidemo.R;
 
 public class AddContactActivity extends BaseActivity {
-    int i ;
     private EditText editText;
     private LinearLayout searchedUserLayout;
     private TextView nameText, mTextView;
