@@ -39,7 +39,7 @@ import android.widget.Toast;
 
 import cn.ucai.fuliCenter.DemoHXSDKHelper;
 import cn.ucai.fuliCenter.I;
-import cn.ucai.fuliCenter.SuperWeChatApplication;
+import cn.ucai.fuliCenter.FuliCenterApplication;
 import cn.ucai.fuliCenter.bean.Result;
 import cn.ucai.fuliCenter.bean.UserAvatar;
 import cn.ucai.fuliCenter.db.InviteMessgeDao;
@@ -525,7 +525,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 			// 保存增加的联系人
 			Map<String, User> localUsers = ((DemoHXSDKHelper)HXSDKHelper.getInstance()).getContactList();
 			Map<String, User> toAddUsers = new HashMap<String, User>();
-			final Map<String, UserAvatar> userAvatarMap = SuperWeChatApplication.getInstance().getUserAvatarMap();
+			final Map<String, UserAvatar> userAvatarMap = FuliCenterApplication.getInstance().getUserAvatarMap();
 			List<String> toAddUserName = new ArrayList<String>();
 			for (String username : usernameList) {
 				User user = setUserHead(username);
@@ -542,7 +542,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 			final OkHttpUtils2<String> utils2 = new OkHttpUtils2<String>();
 			for (final String name : toAddUserName) {
 				utils2.setRequestUrl(I.REQUEST_ADD_CONTACT)
-						.addParam(I.Contact.USER_NAME,SuperWeChatApplication.getInstance().getUserName())
+						.addParam(I.Contact.USER_NAME, FuliCenterApplication.getInstance().getUserName())
 						.addParam(I.Contact.CU_NAME,name)
 						.targetClass(String.class)
 						.execute(new OkHttpUtils2.OnCompleteListener<String>() {
@@ -553,10 +553,10 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 								if (result != null && result.isRetMsg()) {
 									UserAvatar userAvatar = (UserAvatar) result.getRetData();
 									if (userAvatar != null) {
-										if (!SuperWeChatApplication.getInstance().getUserAvatarMap()
+										if (!FuliCenterApplication.getInstance().getUserAvatarMap()
 												.containsKey(userAvatar.getMUserName())) {
-											SuperWeChatApplication.getInstance().getUserAvatarMap().put(userAvatar.getMUserName(),userAvatar);
-											SuperWeChatApplication.getInstance().getUserAvatarList().add(userAvatar);
+											FuliCenterApplication.getInstance().getUserAvatarMap().put(userAvatar.getMUserName(),userAvatar);
+											FuliCenterApplication.getInstance().getUserAvatarList().add(userAvatar);
 											sendStickyBroadcast(new Intent("update_contact_list"));
 										}
 									}

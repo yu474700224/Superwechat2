@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import cn.ucai.fuliCenter.DemoHXSDKHelper;
 import cn.ucai.fuliCenter.I;
-import cn.ucai.fuliCenter.SuperWeChatApplication;
+import cn.ucai.fuliCenter.FuliCenterApplication;
 import cn.ucai.fuliCenter.bean.Result;
 import cn.ucai.fuliCenter.bean.UserAvatar;
 import cn.ucai.fuliCenter.db.UserDao;
@@ -64,7 +64,7 @@ public class SplashActivity extends BaseActivity {
                     EMChatManager.getInstance().loadAllConversations();
 
                     UserDao dao = new UserDao(SplashActivity.this);
-                    String username = SuperWeChatApplication.getInstance().getUserName();
+                    String username = FuliCenterApplication.getInstance().getUserName();
                     Log.e("qqqq", "username:"+username);
                     UserAvatar userAvatar = dao.userAvatarInfo(username);
 //                    Log.e("qqqq", "userAvatar:"+userAvatar.toString());
@@ -81,7 +81,7 @@ public class SplashActivity extends BaseActivity {
                                             Result result = Utils.getResultFromJson(s, UserAvatar.class);
                                             UserAvatar user = (UserAvatar) result.getRetData();
                                             if (user != null) {
-                                                SuperWeChatApplication.currentUserNick = user.getMUserNick();
+                                                FuliCenterApplication.currentUserNick = user.getMUserNick();
                                                 new DownContactListTask(user.getMUserName(), SplashActivity.this).execute();
                                                 new DownGroupListTask(user.getMUserName(), SplashActivity.this).execute();
                                             }else{
@@ -96,7 +96,7 @@ public class SplashActivity extends BaseActivity {
                                     }
                                 });
                     }else{
-                        SuperWeChatApplication.currentUserNick = userAvatar.getMUserNick();
+                        FuliCenterApplication.currentUserNick = userAvatar.getMUserNick();
                         new DownContactListTask(username, SplashActivity.this).execute();
                     }
                     long costTime = System.currentTimeMillis() - start;

@@ -7,7 +7,7 @@ import android.util.Log;
 import java.util.List;
 
 import cn.ucai.fuliCenter.I;
-import cn.ucai.fuliCenter.SuperWeChatApplication;
+import cn.ucai.fuliCenter.FuliCenterApplication;
 import cn.ucai.fuliCenter.bean.GroupAvatar;
 import cn.ucai.fuliCenter.bean.Result;
 import cn.ucai.fuliCenter.bean.UserAvatar;
@@ -40,7 +40,7 @@ public class DownGroupListTask {
                         Log.e(TAG, "list:" + list.toString());
                         if (list != null && list.size() > 0) {
                             Log.e(TAG, "list.size():" + list.size());
-                            SuperWeChatApplication.getInstance().setGroupAvatarList(list);
+                            FuliCenterApplication.getInstance().setGroupAvatarList(list);
                             context.sendStickyBroadcast(new Intent("update_group_list"));
                         }
                     }

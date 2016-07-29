@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 
 import cn.ucai.fuliCenter.I;
-import cn.ucai.fuliCenter.SuperWeChatApplication;
+import cn.ucai.fuliCenter.FuliCenterApplication;
 import cn.ucai.fuliCenter.bean.UserAvatar;
 import cn.ucai.fuliCenter.domain.User;
 import cn.ucai.fuliCenter.Constant;
@@ -397,7 +397,7 @@ public class DemoDBManager {
         values.put(I.User.NICK,nickString);
         if (db.isOpen()) {
             db.update(UserDao.MY_TABLE_NAME, values, UserDao.MY_COLUMN_NAME_ID + " = ?",
-                    new String[]{SuperWeChatApplication.getInstance().getUserName()});
+                    new String[]{FuliCenterApplication.getInstance().getUserName()});
         }
     }
 }

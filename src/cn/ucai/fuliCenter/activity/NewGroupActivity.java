@@ -36,7 +36,7 @@ import com.easemob.exceptions.EaseMobException;
 import java.io.File;
 
 import cn.ucai.fuliCenter.I;
-import cn.ucai.fuliCenter.SuperWeChatApplication;
+import cn.ucai.fuliCenter.FuliCenterApplication;
 import cn.ucai.fuliCenter.bean.GroupAvatar;
 import cn.ucai.fuliCenter.bean.Result;
 import cn.ucai.fuliCenter.listener.OnSetAvatarListener;
@@ -173,7 +173,7 @@ public class NewGroupActivity extends BaseActivity {
         File file = new File(OnSetAvatarListener.getAvatarPath(NewGroupActivity.this, I.AVATAR_TYPE_GROUP_PATH),
                 mAvatarName + I.AVATAR_SUFFIX_JPG);
         Log.e(TAG, "filePath:" + file.getAbsolutePath());
-        String userName = SuperWeChatApplication.getInstance().getUserName();
+        String userName = FuliCenterApplication.getInstance().getUserName();
         boolean isPublic = memberCheckbox.isChecked();
         boolean invites = !isPublic;
         final OkHttpUtils2<String> utils2 = new OkHttpUtils2<String>();

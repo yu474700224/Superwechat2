@@ -70,7 +70,7 @@ import android.widget.Toast;
 
 import cn.ucai.applib.model.GroupRemoveListener;
 import cn.ucai.fuliCenter.DemoHXSDKHelper;
-import cn.ucai.fuliCenter.SuperWeChatApplication;
+import cn.ucai.fuliCenter.FuliCenterApplication;
 import cn.ucai.fuliCenter.domain.RobotUser;
 import cn.ucai.fuliCenter.task.DownMembersListTask;
 import cn.ucai.fuliCenter.utils.Utils;
@@ -862,7 +862,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 			return;
 		}
 
-		cameraFile = new File(PathUtil.getInstance().getImagePath(), SuperWeChatApplication.getInstance().getUserName()
+		cameraFile = new File(PathUtil.getInstance().getImagePath(), FuliCenterApplication.getInstance().getUserName()
 				+ System.currentTimeMillis() + ".jpg");
 		cameraFile.getParentFile().mkdirs();
 		startActivityForResult(

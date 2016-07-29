@@ -25,7 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import cn.ucai.fuliCenter.I;
-import cn.ucai.fuliCenter.SuperWeChatApplication;
+import cn.ucai.fuliCenter.FuliCenterApplication;
 import cn.ucai.fuliCenter.bean.Result;
 import cn.ucai.fuliCenter.listener.OnSetAvatarListener;
 import cn.ucai.fuliCenter.utils.OkHttpUtils2;
@@ -193,7 +193,7 @@ public class RegisterActivity extends BaseActivity {
                             if (!RegisterActivity.this.isFinishing())
                                 pd.dismiss();
                             // 保存用户名
-                            SuperWeChatApplication.getInstance().setUserName(username);
+                            FuliCenterApplication.getInstance().setUserName(username);
                             Toast.makeText(getApplicationContext(), getResources().getString(R.string.Registered_successfully), Toast.LENGTH_LONG).show();
                             finish();
                         }

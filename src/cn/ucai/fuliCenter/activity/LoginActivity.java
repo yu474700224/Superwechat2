@@ -32,7 +32,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import cn.ucai.fuliCenter.I;
-import cn.ucai.fuliCenter.SuperWeChatApplication;
+import cn.ucai.fuliCenter.FuliCenterApplication;
 import cn.ucai.fuliCenter.bean.Result;
 import cn.ucai.fuliCenter.bean.UserAvatar;
 import cn.ucai.fuliCenter.domain.User;
@@ -108,8 +108,8 @@ public class LoginActivity extends BaseActivity {
 
             }
         });
-        if (SuperWeChatApplication.getInstance().getUserName() != null) {
-            usernameEditText.setText(SuperWeChatApplication.getInstance().getUserName());
+        if (FuliCenterApplication.getInstance().getUserName() != null) {
+            usernameEditText.setText(FuliCenterApplication.getInstance().getUserName());
         }
     }
 
@@ -192,7 +192,7 @@ public class LoginActivity extends BaseActivity {
                         if (s!=null) {
                             Result result = Utils.getResultFromJson(s, UserAvatar.class);
                             UserAvatar user = (UserAvatar) result.getRetData();
-                            SuperWeChatApplication.currentUserNick = user.getMUserNick();
+                            FuliCenterApplication.currentUserNick = user.getMUserNick();
                             SavaUserToHXDB(user);
                             HXLoginSuccess(user);
                         }else{
@@ -221,10 +221,10 @@ public class LoginActivity extends BaseActivity {
 
     private void HXLoginSuccess(UserAvatar user) {
         // 登陆成功，保存用户名密码
-        SuperWeChatApplication.getInstance().setUserName(currentUsername);
-        SuperWeChatApplication.getInstance().setPassword(currentPassword);
-        SuperWeChatApplication.getInstance().setUser(user);
-        SuperWeChatApplication.currentUserNick = user.getMUserNick();
+        FuliCenterApplication.getInstance().setUserName(currentUsername);
+        FuliCenterApplication.getInstance().setPassword(currentPassword);
+        FuliCenterApplication.getInstance().setUser(user);
+        FuliCenterApplication.currentUserNick = user.getMUserNick();
         new DownContactListTask(currentUsername,LoginActivity.this).execute();
         new DownGroupListTask(currentUsername,LoginActivity.this).execute();
         try {
@@ -248,7 +248,7 @@ public class LoginActivity extends BaseActivity {
         }
         // 更新当前用户的nickname 此方法的作用是在ios离线推送时能够显示用户nick
         boolean updatenick = EMChatManager.getInstance().updateCurrentUserNick(
-                SuperWeChatApplication.currentUserNick.trim());
+                FuliCenterApplication.currentUserNick.trim());
         if (!updatenick) {
             Log.e("LoginActivity", "update current user nick fail");
         }
