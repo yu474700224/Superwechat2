@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.ucai.applib.utils.HXPreferenceUtils;
-import cn.ucai.chatuidemo.db.UserDao;
+import cn.ucai.fuliCenter.db.UserDao;
 
 import android.content.Context;
 import android.content.SharedPreferences;
