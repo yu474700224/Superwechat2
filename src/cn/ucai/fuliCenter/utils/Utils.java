@@ -81,8 +81,12 @@ public class Utils {
         Result result = new Result();
         try {
             JSONObject jsonObject = new JSONObject(jsonStr);
-            result.setRetCode(jsonObject.getInt("retCode"));
-            result.setRetMsg(jsonObject.getBoolean("retMsg"));
+            if (!jsonObject.isNull("retCode")) {
+                result.setRetCode(jsonObject.getInt("retCode"));
+            }
+            if (!jsonObject.isNull("retMsg")) {
+                result.setRetMsg(jsonObject.getBoolean("retMsg"));
+            }
             if(!jsonObject.isNull("retData")) {
                 JSONObject jsonRetData = jsonObject.getJSONObject("retData");
                 if (jsonRetData != null) {

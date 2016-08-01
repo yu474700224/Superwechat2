@@ -101,7 +101,6 @@ public class ChatAllHistoryAdapter extends ArrayAdapter<EMConversation> {
 		if (conversation.getType() == EMConversationType.GroupChat) {
 			// 群聊消息，显示群聊头像
 //			holder.avatar.setImageResource(R.drawable.group_icon);
-			UserUtils.setGroupUserAvatar(getContext(),username,holder.avatar);
 			EMGroup group = EMGroupManager.getInstance().getGroup(username);
 			holder.name.setText(group != null ? group.getGroupName() : username);
 		} else if(conversation.getType() == EMConversationType.ChatRoom){
@@ -111,7 +110,7 @@ public class ChatAllHistoryAdapter extends ArrayAdapter<EMConversation> {
 		}else {
 		    UserUtils.setAppUserAvatar(getContext(), username, holder.avatar);
 			if (username.equals(Constant.GROUP_USERNAME)) {
-				holder.name.setText("群聊");
+//				holder.name.setText("群聊");
 
 			} else if (username.equals(Constant.NEW_FRIENDS_USERNAME)) {
 				holder.name.setText("申请与通知");

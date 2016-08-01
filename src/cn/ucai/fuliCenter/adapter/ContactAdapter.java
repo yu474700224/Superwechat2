@@ -107,18 +107,6 @@ public class ContactAdapter extends ArrayAdapter<User>  implements SectionIndexe
 			}else{
 			    holder.unreadMsgView.setVisibility(View.INVISIBLE);
 			}
-		}else if(username.equals(Constant.GROUP_USERNAME)){
-			//群聊item
-		    holder.nameTextview.setText(user.getNick());
-		    holder.avatar.setImageResource(R.drawable.groups_icon);
-		}else if(username.equals(Constant.CHAT_ROOM)){
-            //群聊item
-            holder.nameTextview.setText(user.getNick());
-            holder.avatar.setImageResource(R.drawable.groups_icon);
-		}else if(username.equals(Constant.CHAT_ROBOT)){
-			//Robot item
-			holder.nameTextview.setText(user.getNick());
-			holder.avatar.setImageResource(R.drawable.groups_icon);
 		}else{
 //		    holder.nameTextview.setText(user.getNick());
 			UserUtils.setAppUserNick(username, holder.nameTextview);

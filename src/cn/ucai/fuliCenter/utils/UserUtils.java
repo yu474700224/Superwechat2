@@ -212,29 +212,4 @@ public class UserUtils {
         }
     }
 
-    /**
-     * 仿写：设置群组头像
-     *
-     * @param hxid
-     */
-    public static void setGroupUserAvatar(Context context, String hxid, ImageView imageView) {
-        String path = "";
-        if (path != null && hxid != null) {
-            path = getGroupAvatarPath(hxid).toString();
-            Log.e("qqqq", path);
-            Picasso.with(context).load(path).placeholder(R.drawable.group_icon).into(imageView);
-        } else {
-            Picasso.with(context).load(R.drawable.group_icon).into(imageView);
-        }
-    }
-
-    //从服务器上获取好友头像
-    private static StringBuilder getGroupAvatarPath(String hxid) {
-        StringBuilder path = new StringBuilder(I.SERVER_ROOT);
-        path.append(I.QUESTION).append(I.KEY_REQUEST).append(I.EQUAL).append(I.REQUEST_DOWNLOAD_AVATAR)
-                .append(I.ADD).append(I.NAME_OR_HXID).append(I.EQUAL).append(hxid)
-                .append(I.ADD).append(I.AVATAR_TYPE).append(I.EQUAL).append(I.AVATAR_TYPE_GROUP_PATH);
-        return path;
-    }
-
 }
