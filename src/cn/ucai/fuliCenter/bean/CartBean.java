@@ -22,7 +22,7 @@ public class CartBean implements Serializable {
     private int count;
 
     private boolean IsChecked;
-    private String goods;
+    private GoodDetailsBean goods;
 
     public int getId() {
         return id;
@@ -64,11 +64,11 @@ public class CartBean implements Serializable {
         this.IsChecked = checked;
     }
 
-    public String getGoods() {
+    public GoodDetailsBean getGoods() {
         return goods;
     }
 
-    public void setGoods(String goods) {
+    public void setGoods(GoodDetailsBean goods) {
         this.goods = goods;
     }
 
