@@ -96,7 +96,7 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
             UserUtils.setAppUserAvatar(this, EMChatManager.getInstance().getCurrentUser(), headAvatar);
         }else if(hxId!=null){
             tvUsername.setText(username);
-            UserUtils.setAppMemberNick(hxId,username, tvNickName);
+//            UserUtils.setAppMemberNick(hxId,username, tvNickName);
             UserUtils.setAppUserAvatar(this, username, headAvatar);
         } else {
             tvUsername.setText(username);

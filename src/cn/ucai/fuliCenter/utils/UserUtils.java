@@ -237,26 +237,4 @@ public class UserUtils {
         return path;
     }
 
-    //从全局变量中获取群组信息
-    @Nullable
-    private static MemberUserAvatar getAppMemberInfo(String hxId, String username) {
-        MemberUserAvatar memberUserAvatar = null;
-        Map<String, MemberUserAvatar> members = FuliCenterApplication.getInstance().getMemberAvatarMap().get(hxId);
-        if (members == null || members.size() < 0) {
-            return null;
-        }else{
-            memberUserAvatar = members.get(username);
-        }
-        return memberUserAvatar;
-    }
-
-    public static void setAppMemberNick(String hxid, String username, TextView textView) {
-        final MemberUserAvatar memberInfo = getAppMemberInfo(hxid, username);
-        Log.e(TAG, "memberInfo:" + memberInfo);
-        if (memberInfo != null && memberInfo.getMUserNick() != null) {
-            textView.setText(memberInfo.getMUserNick());
-        }else{
-            textView.setText(memberInfo.getMUserName());
-        }
-    }
 }

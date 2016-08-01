@@ -17,7 +17,6 @@ import cn.ucai.fuliCenter.bean.Result;
 import cn.ucai.fuliCenter.bean.UserAvatar;
 import cn.ucai.fuliCenter.db.UserDao;
 import cn.ucai.fuliCenter.task.DownContactListTask;
-import cn.ucai.fuliCenter.task.DownGroupListTask;
 import cn.ucai.fuliCenter.utils.OkHttpUtils2;
 import cn.ucai.fuliCenter.utils.Utils;
 
@@ -83,7 +82,7 @@ public class SplashActivity extends BaseActivity {
                                             if (user != null) {
                                                 FuliCenterApplication.currentUserNick = user.getMUserNick();
                                                 new DownContactListTask(user.getMUserName(), SplashActivity.this).execute();
-                                                new DownGroupListTask(user.getMUserName(), SplashActivity.this).execute();
+//                                                new DownGroupListTask(user.getMUserName(), SplashActivity.this).execute();
                                             }else{
                                                 Log.e("qqqq", "没找到此用户");
                                             }

@@ -72,7 +72,6 @@ import cn.ucai.applib.model.GroupRemoveListener;
 import cn.ucai.fuliCenter.DemoHXSDKHelper;
 import cn.ucai.fuliCenter.FuliCenterApplication;
 import cn.ucai.fuliCenter.domain.RobotUser;
-import cn.ucai.fuliCenter.task.DownMembersListTask;
 import cn.ucai.fuliCenter.utils.Utils;
 import cn.ucai.fuliCenter.widget.ExpandGridView;
 import cn.ucai.fuliCenter.widget.PasteEditText;
@@ -407,9 +406,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 			toChatUsername = getIntent().getStringExtra("groupId");
 
 			if(chatType == CHATTYPE_GROUP){
-			    onGroupViewCreation();
-				new DownMembersListTask(toChatUsername, getApplicationContext()).execute();
-			}else{ 
+//			    onGroupViewCreation();
+			}else{
 			    onChatRoomViewCreation();
 			}
 		}
@@ -1251,11 +1249,11 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 			return;
 		}
 		if(chatType == CHATTYPE_GROUP){
-			startActivityForResult((new Intent(this, GroupDetailsActivity.class).putExtra("groupId", toChatUsername)),
-					REQUEST_CODE_GROUP_DETAIL);
+//			startActivityForResult((new Intent(this, GroupDetailsActivity.class).putExtra("groupId", toChatUsername)),
+//					REQUEST_CODE_GROUP_DETAIL);
 		}else{
-			startActivityForResult((new Intent(this, ChatRoomDetailsActivity.class).putExtra("roomId", toChatUsername)),
-					REQUEST_CODE_GROUP_DETAIL);
+//			startActivityForResult((new Intent(this, ChatRoomDetailsActivity.class).putExtra("roomId", toChatUsername)),
+//					REQUEST_CODE_GROUP_DETAIL);
 		}
 	}
 
@@ -1728,8 +1726,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 				public void run() {
 					if (toChatUsername.equals(groupId)) {
 						Toast.makeText(ChatActivity.this, st13, Toast.LENGTH_LONG).show();
-						if (GroupDetailsActivity.instance != null)
-							GroupDetailsActivity.instance.finish();
+//						if (GroupDetailsActivity.instance != null)
+//							GroupDetailsActivity.instance.finish();
 						finish();
 					}
 				}
@@ -1745,8 +1743,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 				public void run() {
 					if (toChatUsername.equals(groupId)) {
 						Toast.makeText(ChatActivity.this, st14, Toast.LENGTH_LONG).show();
-						if (GroupDetailsActivity.instance != null)
-							GroupDetailsActivity.instance.finish();
+//						if (GroupDetailsActivity.instance != null)
+//							GroupDetailsActivity.instance.finish();
 						finish();
 					}
 				}
