@@ -50,6 +50,13 @@
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustPan" >
         </activity>
+        <activity
+            android:name="cn.ucai.fuliCenter.activity.FulicenterMainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
 
         <!-- 开屏页 -->
         <activity
@@ -93,40 +100,8 @@
             android:windowSoftInputMode="stateVisible"
             android:theme="@style/horizontal_slide" >
         </activity>
-        <!-- 群组详情 -->
-        <activity
-            android:name="cn.ucai.fuliCenter.activity.GroupDetailsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide" >
-        </activity>
-        <!-- 群组列表 -->
-        <activity
-            android:name="cn.ucai.fuliCenter.activity.GroupsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide"
-            android:windowSoftInputMode="adjustPan" >
-        </activity>
-        
-        <activity
-            android:name="cn.ucai.fuliCenter.activity.ChatRoomActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide"
-            android:windowSoftInputMode="adjustPan" >
-        </activity>
-        <!-- 聊天室详情 -->
-        <activity
-            android:name="cn.ucai.fuliCenter.activity.ChatRoomDetailsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide" >
-        </activity>
-        
-        <!-- 新建群组 -->
-        <activity
-            android:name="cn.ucai.fuliCenter.activity.NewGroupActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide"
-            android:windowSoftInputMode="adjustPan" >
-        </activity>
+
+
         <!-- 退出群组提示框 -->
         <activity
             android:name="cn.ucai.fuliCenter.activity.ExitGroupDialog"
@@ -134,12 +109,6 @@
             android:theme="@style/MyDialogStyleBottom" >
         </activity>
         <!-- 群组选人 -->
-        <activity
-            android:name="cn.ucai.fuliCenter.activity.GroupPickContactsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide"
-            android:windowSoftInputMode="adjustPan" >
-        </activity>
         <!-- 地图 -->
         <activity
             android:name="cn.ucai.fuliCenter.activity.BaiduMapActivity"
@@ -191,21 +160,6 @@
             android:theme="@style/horizontal_slide" >
         </activity>
 
-        <!-- 公开的群聊列表 -->
-        <activity
-            android:name="cn.ucai.fuliCenter.activity.PublicGroupsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide"
-            android:windowSoftInputMode="adjustPan" >
-        </activity>
-        
-        <activity
-            android:name="cn.ucai.fuliCenter.activity.PublicChatRoomsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide"
-            android:windowSoftInputMode="adjustPan" >
-        </activity>
-        
         <!-- 语音通话 -->
         <activity
             android:name="cn.ucai.fuliCenter.activity.VoiceCallActivity"
@@ -219,23 +173,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
-            android:theme="@style/horizontal_slide" >
-        </activity>
-        <!-- 群聊简单信息 -->
-        <activity
-            android:name="cn.ucai.fuliCenter.activity.GroupSimpleDetailActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide" >
-        </activity>
-        <!-- 群组黑名单用户列表 -->
-        <activity
-            android:name="cn.ucai.fuliCenter.activity.GroupBlacklistActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide" >
-        </activity>
-        <activity
-            android:name="cn.ucai.fuliCenter.activity.PublicGroupsSeachActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" >
         </activity>
         <activity

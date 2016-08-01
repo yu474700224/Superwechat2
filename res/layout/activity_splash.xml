@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:src="@drawable/geek" />
+        android:src="@drawable/splash" />
 
 
 
@@ -24,8 +24,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="超级微信"
-            android:textColor="#fff"
+            android:text="福利社"
+            android:textColor="#000"
             android:textSize="20dip"
             android:typeface="normal" >
         </TextView>
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dip"
             android:text="0.0.1"
-            android:textColor="#fff"
+            android:textColor="#000"
             android:textSize="20sp" >
         </TextView>
     </LinearLayout>
