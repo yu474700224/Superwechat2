@@ -38,7 +38,8 @@ public class NewGoodBean implements Serializable {
     private String currencyPrice;
     private String promotePrice;
     private String rankPrice;
-    private boolean promote;
+
+    private boolean IsPromote;
     private String goodsThumb;
     private String goodsImg;
     private int colorId;
@@ -128,11 +129,11 @@ public class NewGoodBean implements Serializable {
     }
 
     public boolean isPromote() {
-        return promote;
+        return IsPromote;
     }
 
     public void setPromote(boolean promote) {
-        this.promote = promote;
+        this.IsPromote = promote;
     }
 
     public String getGoodsThumb() {
@@ -204,7 +205,7 @@ public class NewGoodBean implements Serializable {
                 ", currencyPrice='" + currencyPrice + '\'' +
                 ", promotePrice='" + promotePrice + '\'' +
                 ", rankPrice='" + rankPrice + '\'' +
-                ", promote=" + promote +
+                ", promote=" + IsPromote +
                 ", goodsThumb='" + goodsThumb + '\'' +
                 ", goodsImg='" + goodsImg + '\'' +
                 ", colorId=" + colorId +

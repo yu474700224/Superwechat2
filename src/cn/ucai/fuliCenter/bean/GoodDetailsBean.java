@@ -40,7 +40,7 @@ public class GoodDetailsBean implements Serializable {
     private String goodsImg;
     private long addTime;
     private String shareUrl;
-    private boolean promote;
+    private boolean IsPromote;
     private PropertiesBean[] properties;
 
     public PropertiesBean[] getProperties() {
@@ -164,11 +164,11 @@ public class GoodDetailsBean implements Serializable {
     }
 
     public boolean isPromote() {
-        return promote;
+        return IsPromote;
     }
 
     public void setPromote(boolean promote) {
-        this.promote = promote;
+        this.IsPromote = promote;
     }
 
     @Override
@@ -188,7 +188,7 @@ public class GoodDetailsBean implements Serializable {
                 ", goodsImg='" + goodsImg + '\'' +
                 ", addTime=" + addTime +
                 ", shareUrl='" + shareUrl + '\'' +
-                ", promote=" + promote +
+                ", promote=" + IsPromote +
                 ", properties=" + Arrays.toString(properties) +
                 '}';
     }
