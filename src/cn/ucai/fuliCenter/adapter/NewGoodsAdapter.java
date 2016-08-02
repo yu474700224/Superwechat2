@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.ucai.fuliCenter.bean.NewGoodBean;
+import cn.ucai.fuliCenter.utils.ImageUtils;
 
 /**
  * Created by Administrator on 2016/8/1.
@@ -46,8 +47,9 @@ public class NewGoodsAdapter extends RecyclerView.Adapter {
         if (holder instanceof NewGoodsHolder) {
             newGoodsHolder = (NewGoodsHolder) holder;
             NewGoodBean newgoods = list.get(position);
-            newGoodsHolder.mTvNewgoodsDecs.setText(newgoods.getGoodsBrief());
-            newGoodsHolder.mTvNewgoodsPrice.setText(newgoods.getPromotePrice());
+            ImageUtils.setNewGoodsThum(context,newGoodsHolder.ivNewgoodsPicture,newgoods.getGoodsThumb());
+            newGoodsHolder.tvNewgoodsDecs.setText(newgoods.getGoodsBrief());
+            newGoodsHolder.tvNewgoodsPrice.setText(newgoods.getCurrencyPrice());
         }
     }
 
@@ -65,16 +67,17 @@ public class NewGoodsAdapter extends RecyclerView.Adapter {
     }
 
     class NewGoodsHolder extends RecyclerView.ViewHolder {
-        private RelativeLayout mRlNewgoods;
-        private ImageView mIvNewgoodsPicture;
-        private TextView mTvNewgoodsDecs;
-        private TextView mTvNewgoodsPrice;
+        private RelativeLayout rlNewgoods;
+        private ImageView ivNewgoodsPicture;
+        private TextView tvNewgoodsDecs;
+        private TextView tvNewgoodsPrice;
 
         public NewGoodsHolder(View itemView) {
             super(itemView);
-            mIvNewgoodsPicture = (ImageView) itemView.findViewById(R.id.iv_GoodsPicture);
-            mTvNewgoodsDecs = (TextView) itemView.findViewById(R.id.tv_GoodsDesc);
-            mTvNewgoodsPrice = (TextView) itemView.findViewById(R.id.tv_GoodsPrice);
+            rlNewgoods = (RelativeLayout) itemView.findViewById(R.id.rlv_newgoods);
+            ivNewgoodsPicture = (ImageView) itemView.findViewById(R.id.iv_GoodsPicture);
+            tvNewgoodsDecs = (TextView) itemView.findViewById(R.id.tv_GoodsDesc);
+            tvNewgoodsPrice = (TextView) itemView.findViewById(R.id.tv_GoodsPrice);
         }
     }
 }
