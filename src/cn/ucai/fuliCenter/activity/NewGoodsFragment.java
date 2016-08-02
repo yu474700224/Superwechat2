@@ -32,6 +32,7 @@ import cn.ucai.fuliCenter.utils.Utils;
  * A simple {@link Fragment} subclass.
  */
 public class NewGoodsFragment extends Fragment {
+    int i ;
     private static String TAG = NewGoodsFragment.class.getSimpleName();
     FulicenterMainActivity mContext;
     SwipeRefreshLayout mSwipeRefreshLayout;
