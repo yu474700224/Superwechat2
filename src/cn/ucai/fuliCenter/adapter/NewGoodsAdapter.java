@@ -28,6 +28,7 @@ public class NewGoodsAdapter extends RecyclerView.Adapter {
     Context context;
     List<NewGoodBean> list;
     NewGoodsHolder newGoodsHolder;
+    boolean isMore;
 
     public NewGoodsAdapter(Context context, List<NewGoodBean> list) {
         this.context = context;
@@ -79,6 +80,14 @@ public class NewGoodsAdapter extends RecyclerView.Adapter {
             tvNewgoodsDecs = (TextView) itemView.findViewById(R.id.tv_GoodsDesc);
             tvNewgoodsPrice = (TextView) itemView.findViewById(R.id.tv_GoodsPrice);
         }
+    }
+
+    public boolean isMore() {
+        return isMore;
+    }
+
+    public void setMore(boolean more) {
+        isMore = more;
     }
 }
 

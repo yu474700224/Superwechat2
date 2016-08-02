@@ -41,7 +41,7 @@ public class NewGoodsFragment extends Fragment {
     NewGoodsAdapter mNewGoodsAdapter;
     TextView tvRegresh;
 
-    int pageId = 1;
+    int pageId = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,10 +56,34 @@ public class NewGoodsFragment extends Fragment {
     }
 
     private void setRegreshListener() {
-      setPullDownListner();
+        setPullDownListener();
+        setPullUpListener();
     }
 
-    private void setPullDownListner() {
+    private void setPullUpListener() {
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            int lastItemPosition;
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastItemPosition == mNewGoodsAdapter.getItemCount()-1) {
+                    if (mNewGoodsAdapter.isMore()) {
+                        pageId += I.PAGE_SIZE_DEFAULT;
+                        initData();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastItemPosition = mGridLayoutManager.findLastVisibleItemPosition();
+            }
+        });
+    }
+
+    private void setPullDownListener() {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -77,11 +101,16 @@ public class NewGoodsFragment extends Fragment {
                 tvRegresh.setVisibility(View.GONE);
                 mSwipeRefreshLayout.setRefreshing(false);
                 Log.e(TAG, "result=" + result);
+                mNewGoodsAdapter.setMore(true);
                 if (result != null) {
                     Log.e(TAG, "result.length=" + result.length);
                     ArrayList<NewGoodBean> newGoodBeenList = Utils.array2List(result);
                     mNewGoodsAdapter.initdata(newGoodBeenList);
+                    if (result.length < I.PAGE_SIZE_DEFAULT) {
+                        mNewGoodsAdapter.setMore(false);
+                    }
                 }
+
             }
 
             @Override
@@ -91,17 +120,19 @@ public class NewGoodsFragment extends Fragment {
         });
     }
 
-    private void findNewGoodsListListener(OkHttpUtils2.OnCompleteListener<NewGoodBean[]> listener){
-        Log.e(TAG,"findNewGoodsListListener");
+    private void findNewGoodsListListener(OkHttpUtils2.OnCompleteListener<NewGoodBean[]> listener) {
+        Log.e(TAG, "findNewGoodsListListener");
         OkHttpUtils2<NewGoodBean[]> utils2 = new OkHttpUtils2<NewGoodBean[]>();
-        Log.e(TAG,"findNewGoodsListListener2");
+        Log.e(TAG, "findNewGoodsListListener2");
         utils2.setRequestUrl(I.REQUEST_FIND_NEW_BOUTIQUE_GOODS)
-                .addParam(I.NewAndBoutiqueGood.CAT_ID,String.valueOf(I.CAT_ID))
-                .addParam(I.PAGE_ID,String.valueOf(pageId))
-                .addParam(I.PAGE_SIZE,String.valueOf(I.PAGE_SIZE_DEFAULT))
+                .addParam(I.NewAndBoutiqueGood.CAT_ID, String.valueOf(I.CAT_ID))
+                .addParam(I.PAGE_ID, String.valueOf(pageId))
+                .addParam(I.PAGE_SIZE, String.valueOf(I.PAGE_SIZE_DEFAULT))
                 .targetClass(NewGoodBean[].class)
                 .execute(listener);
-    };
+    }
+
+    ;
 
     private void initView(View layout) {
         mSwipeRefreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.srl_NewGoods);
