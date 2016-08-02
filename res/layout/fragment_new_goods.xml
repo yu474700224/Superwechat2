@@ -2,7 +2,17 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="cn.ucai.fuliCenter.activity.NewGoodsFragment"
-    android:background="#fff">
+             android:background="#fff"
+             tools:context="cn.ucai.fuliCenter.activity.NewGoodsFragment">
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_NewGoods"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rlv_newgoods"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>

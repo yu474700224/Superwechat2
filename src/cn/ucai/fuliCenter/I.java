@@ -3,7 +3,7 @@ package cn.ucai.fuliCenter;
 import cn.ucai.fuliCenter.D;
 
 public interface I {
-    String SERVER_ROOT                             =       "http://10.0.2.2:8080/SuperWeChatServer/Server";
+    String SERVER_ROOT                             =       "http://10.0.2.2:8080/FuLiCenterServer/Server";
 
     public static final String FILE_NAME="file_name";
 

@@ -13,7 +13,7 @@
         android:src="@drawable/nopic"/>
 
     <TextView
-        android:id="@+id/tv_GoodsName"
+        android:id="@+id/tv_GoodsDesc"
         android:layout_width="195dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_GoodsPicture"
@@ -29,7 +29,7 @@
         android:id="@+id/tv_GoodsPrice"
         android:layout_width="195dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_GoodsName"
+        android:layout_below="@+id/tv_GoodsDesc"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:text="$399.99"
