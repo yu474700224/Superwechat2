@@ -3,16 +3,24 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:background="#fff"
-             tools:context="cn.ucai.fuliCenter.activity.NewGoodsFragment">
+             tools:context="cn.ucai.fuliCenter.activity.NewGoodsFragment"
+            >
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/srl_NewGoods"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include layout="@layout/common_refresh_hint"
+            ></include>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rlv_newgoods"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>

@@ -12,8 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.easemob.chatuidemo.R;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +39,7 @@ public class NewGoodsFragment extends Fragment {
     GridLayoutManager mGridLayoutManager;
     List<NewGoodBean> mList;
     NewGoodsAdapter mNewGoodsAdapter;
+    TextView tvRegresh;
 
     int pageId = 1;
 
@@ -45,15 +49,33 @@ public class NewGoodsFragment extends Fragment {
         View layout = LayoutInflater.from(mContext).inflate(R.layout.fragment_new_goods, null);
         mList = new ArrayList<NewGoodBean>();
         initView(layout);
+        setRegreshListener();
         initData();
         return layout;
 
+    }
+
+    private void setRegreshListener() {
+      setPullDownListner();
+    }
+
+    private void setPullDownListner() {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                tvRegresh.setVisibility(View.VISIBLE);
+                pageId = 1;
+                initData();
+            }
+        });
     }
 
     private void initData() {
         findNewGoodsListListener(new OkHttpUtils2.OnCompleteListener<NewGoodBean[]>() {
             @Override
             public void onSuccess(NewGoodBean[] result) {
+                tvRegresh.setVisibility(View.GONE);
+                mSwipeRefreshLayout.setRefreshing(false);
                 Log.e(TAG, "result=" + result);
                 if (result != null) {
                     Log.e(TAG, "result.length=" + result.length);
@@ -95,5 +117,6 @@ public class NewGoodsFragment extends Fragment {
         mRecyclerView.setLayoutManager(mGridLayoutManager);
         mNewGoodsAdapter = new NewGoodsAdapter(mContext, mList);
         mRecyclerView.setAdapter(mNewGoodsAdapter);
+        tvRegresh = (TextView) layout.findViewById(R.id.tv_refresh_hint);
     }
 }
