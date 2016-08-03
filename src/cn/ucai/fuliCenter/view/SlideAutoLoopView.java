@@ -30,6 +30,7 @@ import cn.ucai.fuliCenter.utils.Utils;
  * @author yao
  */
 public class SlideAutoLoopView extends ViewPager {
+    int i;
     Context mContext;
     /** 自动播放的标识符*/
     final int ACTION_PLAY=1;
