@@ -26,6 +26,7 @@ import cn.ucai.fuliCenter.adapter.NewGoodsAdapter;
 import cn.ucai.fuliCenter.bean.NewGoodBean;
 import cn.ucai.fuliCenter.utils.OkHttpUtils2;
 import cn.ucai.fuliCenter.utils.Utils;
+import cn.ucai.fuliCenter.view.FooterHolder;
 
 
 /**
@@ -44,6 +45,7 @@ public class NewGoodsFragment extends Fragment {
 
     int pageId = 0;
 
+    int action = I.ACTION_DOWNLOAD;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = (FulicenterMainActivity) getContext();
@@ -69,6 +71,7 @@ public class NewGoodsFragment extends Fragment {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && lastItemPosition == mNewGoodsAdapter.getItemCount()-1) {
                     if (mNewGoodsAdapter.isMore()) {
+                        action = I.ACTION_PULL_UP;
                         pageId += I.PAGE_SIZE_DEFAULT;
                         initData();
                     }
@@ -85,6 +88,7 @@ public class NewGoodsFragment extends Fragment {
     }
 
     private void setPullDownListener() {
+        action = I.ACTION_PULL_DOWN;
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -103,13 +107,22 @@ public class NewGoodsFragment extends Fragment {
                 mSwipeRefreshLayout.setRefreshing(false);
                 Log.e(TAG, "result=" + result);
                 mNewGoodsAdapter.setMore(true);
+                mNewGoodsAdapter.setFooterString(getResources().getString(R.string.load_more));
                 if (result != null) {
                     Log.e(TAG, "result.length=" + result.length);
                     ArrayList<NewGoodBean> newGoodBeenList = Utils.array2List(result);
-                    mNewGoodsAdapter.initdata(newGoodBeenList);
+                    if (action == I.ACTION_DOWNLOAD || action == I.ACTION_PULL_DOWN) {
+                        mNewGoodsAdapter.initdata(newGoodBeenList);
+                    }else{
+                        mNewGoodsAdapter.adddata(newGoodBeenList);
+                    }
                     if (result.length < I.PAGE_SIZE_DEFAULT) {
                         mNewGoodsAdapter.setMore(false);
+                        mNewGoodsAdapter.setFooterString(getResources().getString(R.string.no_more));
                     }
+                }else{
+                    mNewGoodsAdapter.setMore(false);
+                    mNewGoodsAdapter.setFooterString(getResources().getString(R.string.no_more));
                 }
 
             }

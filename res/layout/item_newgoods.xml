@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:id="@+id/layout_New_Goods"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#fff"
-    >
+<LinearLayout android:id="@+id/layout_New_Goods"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_margin="5dp"
+              android:layout_weight="1"
+              android:background="@color/white"
+              android:orientation="vertical">
 
     <ImageView
         android:id="@+id/iv_GoodsPicture"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/nopic"/>
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:src="@drawable/nopic"
+        android:scaleType="fitXY"
+        android:layout_weight="0.42"/>
 
     <TextView
         android:id="@+id/tv_GoodsDesc"
-        android:layout_width="195dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_GoodsPicture"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:ellipsize="end"
         android:maxLines="2"
-        android:text="商品商品商品商品商品商品商品商品商品商品商品商品商品商品商品商品商品商品商品商品商品商品商品商品商品商品商品"
+        android:text="商品商品商品商品商品商品商品商品商品商品商品商品品商品商品商品品商品商品商品品商品商品商品商品商品商品商品商品商品商品商品商品商品商品商品商品商品商品"
         android:textColor="#000"
         />
 
@@ -36,4 +40,4 @@
         android:textColor="#f00"
         android:textSize="20dp"/>
 
-</RelativeLayout>
+</LinearLayout>
